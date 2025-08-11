@@ -9,7 +9,6 @@ main_page = MainPage()
 @allure.label("owner", "kyarygina")
 @allure.story("Фильтры поиска на главной странице")
 @allure.feature("Проверка фильтров на вкладке 'Купить'")
-@allure.link("https://www.cian.ru", name="Testing")
 def test_buy_realty_tab_filters():
     with allure.step("Заполнить фильтры на вкладке 'Купить'"):
         (
@@ -32,7 +31,6 @@ def test_buy_realty_tab_filters():
 @allure.label("owner", "kyarygina")
 @allure.story("Фильтры поиска на главной странице")
 @allure.feature("Проверка фильтров на вкладке 'Снять'")
-@allure.link("https://www.cian.ru", name="Testing")
 def test_rent_realty_tab_filters():
     with allure.step("Заполнить фильтры на вкладке 'Снять'"):
         (
@@ -53,7 +51,6 @@ def test_rent_realty_tab_filters():
 @allure.label("owner", "kyarygina")
 @allure.story("Фильтры поиска на главной странице")
 @allure.feature("Проверка фильтров на вкладке 'Посуточно'")
-@allure.link("https://www.cian.ru", name="Testing")
 def test_daily_rent_realty_tab_filters():
     with allure.step("Заполнить фильтры на вкладке 'Посуточно'"):
         (
@@ -71,7 +68,6 @@ def test_daily_rent_realty_tab_filters():
 @allure.label("owner", "kyarygina")
 @allure.story("Фильтры поиска на главной странице")
 @allure.feature("Проверка фильтров на вкладке 'Ипотека'")
-@allure.link("https://www.cian.ru", name="Testing")
 def test_mortgage_realty_tab_filters():
     with allure.step("Заполнить фильтры на вкладке 'Ипотека'"):
         (
@@ -93,7 +89,6 @@ def test_mortgage_realty_tab_filters():
 @allure.label("owner", "kyarygina")
 @allure.story("Фильтры поиска на главной странице")
 @allure.feature("Проверка диалогового окна на вкладке 'Подбор риелтора'")
-@allure.link("https://www.cian.ru", name="Testing")
 def test_realtor_realty_tab_filters():
     with allure.step("Заполнить фильтры на вкладке 'Подбор риелтора'"):
         (
