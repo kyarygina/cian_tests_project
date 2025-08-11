@@ -1,3 +1,5 @@
+import time
+
 import allure
 from selene import browser
 from selene.support.conditions import have
@@ -57,6 +59,13 @@ class MainPage:
         # Элементы на вкладке "Подбор риелтора"
         self.realtor_realty_tab = browser.all('a').element_by(have.text('Подбор риелтора'))
         self.realtor_question_tab = browser.element('div[data-name="CPDModalContainer"] span')
+
+        # Элементы в хедере главной страницы
+        self.header_navigation_tabs = browser.all('[data-testid="nav-item"]')
+        self.header_link_tabs = browser.all('[data-name="MyHomeLinkLayout"], '
+                                '[data-name="CPDLink"], '
+                                '[data-name=MobileAppLinkLayout]')
+
 
     # Методы для вкладки "Купить"
 
@@ -219,4 +228,16 @@ class MainPage:
     @allure.step("Проверить наличие текста в заголовке")
     def should_header_have_text(self,value):
         self.realtor_question_tab.should(have.text(value))
+        return self
+
+    # Методы для хедера главной страницы
+
+    @allure.step("Проверить, что список вкладок в хедере соответствует ожидаемому")
+    def should_header_navigation_tabs_have_text(self, *expected_tabs):
+        self.header_navigation_tabs.should(have.texts(*expected_tabs))
+        return self
+
+    @allure.step("Проверить, что список вкладок в хедере соответствует ожидаемому")
+    def should_header_link_tabs_have_text(self, *expected_tabs):
+        self.header_link_tabs.should(have.texts(*expected_tabs))
         return self

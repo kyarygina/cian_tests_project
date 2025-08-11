@@ -1,7 +1,7 @@
 import os
 import allure
 import pytest
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selene.support.shared import browser
@@ -10,7 +10,7 @@ from utils import attach
 
 @pytest.fixture(scope="session", autouse=True)
 def load_env():
-    load_dotenv()
+    load_dotenv(find_dotenv())
 
 selenoid_login = os.getenv("SELENOID_LOGIN")
 selenoid_pass = os.getenv("SELENOID_PASS")
