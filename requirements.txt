@@ -3,3 +3,6 @@ selene==2.0.0b5
 allure-pytest
 selenium
 python-dotenv==0.20.0
+requests==2.32.4
+jsonschema==4.24.0
+simple-settings==0.12.1
