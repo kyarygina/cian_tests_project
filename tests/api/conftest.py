@@ -1,8 +1,17 @@
+import logging
 import pytest
 from api.authentication_api import get_auth_cookie
 
 
-@pytest.fixture(scope="module")
+def pytest_configure(config):
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
+
+@pytest.fixture(scope="session")
 def auth_data():
-    session, cookie = get_auth_cookie()
-    return session, cookie
+    session, cian_cookie = get_auth_cookie()
+    session.cookies.set("_CIAN_GK", cian_cookie)
+    return session

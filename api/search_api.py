@@ -1,12 +1,16 @@
+import os
+
 from allure_commons._allure import step
+from dotenv import load_dotenv
 
-BASE_API = "https://api.cian.ru"
+load_dotenv()
+BASE_API_URL = os.getenv("CIAN_API_URL")
 
 
-def get_first_newbuilding_data(session, cian_cookie):
+def get_first_newbuilding_data(session):
 
     with step("Выполнить запрос на поиск объявлений"):
-        url = f"{BASE_API}/search-engine/v1/search-offers-mobile-site/"
+        url = f"{BASE_API_URL}/search-engine/v1/search-offers-mobile-site/"
         payload = {
             "jsonQuery": {
                 "_type": "flatsale",
@@ -18,8 +22,8 @@ def get_first_newbuilding_data(session, cian_cookie):
             },
             "subdomain": "www"
         }
-        cookies = {"_CIAN_GK": cian_cookie}
-        r = session.post(url, json=payload, cookies=cookies)
+       # cookies = {"_CIAN_GK": cian_cookie}
+        r = session.post(url, json=payload)
         r.raise_for_status()
         data = r.json()
 

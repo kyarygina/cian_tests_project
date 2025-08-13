@@ -1,11 +1,15 @@
+import os
+
 import requests
 from allure_commons._allure import step
+from dotenv import load_dotenv
 
-BASE_API_URL = "https://api.cian.ru"
-BASE_WWW_URL = "https://www.cian.ru"
-LOGIN = "ks.kamenskova@yandex.ru"
-PASSWORD = "1234Test!!!!"
+load_dotenv()
 
+BASE_API_URL = os.getenv("CIAN_API_URL")
+BASE_WWW_URL = os.getenv("CIAN_WWW_URL")
+LOGIN = os.getenv("CIAN_LOGIN")
+PASSWORD = os.getenv("CIAN_PASSWORD")
 
 def get_auth_cookie(login: str = LOGIN, password: str = PASSWORD):
 
