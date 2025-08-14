@@ -2,12 +2,14 @@ import os
 
 from allure_commons._allure import step
 from dotenv import load_dotenv
+from models.category_mapping import CATEGORY_TO_ENTITYTYPE
+from tests.api.conftest import auth_data
 
 load_dotenv()
 BASE_API_URL = os.getenv("CIAN_API_URL")
 
 
-def get_first_newbuilding_data(session):
+def get_newbuilding_data(session, offer_index=0):
 
     with step("Выполнить запрос на поиск объявлений"):
         url = f"{BASE_API_URL}/search-engine/v1/search-offers-mobile-site/"
@@ -22,7 +24,7 @@ def get_first_newbuilding_data(session):
             },
             "subdomain": "www"
         }
-       # cookies = {"_CIAN_GK": cian_cookie}
+
         r = session.post(url, json=payload)
         r.raise_for_status()
         data = r.json()
@@ -32,10 +34,31 @@ def get_first_newbuilding_data(session):
             raise RuntimeError("В ответе нет списка offers")
 
     with step("Получить данные по первому обявлению в списке офферов"):
-        first_offer = offers[0]
+        first_offer = offers[offer_index]
         newbuilding_id = first_offer.get("newbuildingId")
         deal_type = first_offer.get("dealType")
         category = first_offer.get("category")
 
 
     return newbuilding_id, deal_type, category
+
+
+def add_newbuilding_to_favorite(session, offer_index=0):
+
+    newbuilding_id, deal_type, category = get_newbuilding_data(session, offer_index)
+
+    entity_type = CATEGORY_TO_ENTITYTYPE.get(category)
+
+    with step("Выполнить запрос на добавление объявления в избранное"):
+        url = f"{BASE_API_URL}/favorites/v1/add-favorite/"
+        payload = {
+            "entityId": newbuilding_id,
+            "dealType": deal_type,
+            "entityType": entity_type,
+            "addToFolder": True
+        }
+
+        r = session.post(url, json=payload)
+        r.raise_for_status()
+
+    return newbuilding_id, entity_type

@@ -3,7 +3,7 @@ add_favorite_request = {
   "type": "object",
   "properties": {
     "entityId": {
-      "type": "integer"
+      "type": ["integer", "null"]
     },
     "dealType": {
       "type": "string"
